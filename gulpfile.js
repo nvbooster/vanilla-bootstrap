@@ -5,24 +5,14 @@ var gulp = require('gulp')
   , $ = require('gulp-load-plugins')()
 
 gulp.task('styles', function () {
-  var themes = $.filter('themes/*.css', {
-    restore: true
-  });
 
   return gulp.src([
     'less/style.less'
-  , 'less/themes/*.less'
   ], {base: 'less'})
     .pipe($.plumber())
     .pipe($.less())
     .pipe($.autoprefixer())
-    .pipe($.csso())
-    .pipe(themes)
-    .pipe($.rename({
-      dirname: '/'
-    , prefix: 'custom_'
-    }))
-    .pipe(themes.restore)
+    .pipe($.csso())    
     .pipe(gulp.dest('design'))
     .pipe($.size({showFiles: true}));
 });
@@ -71,3 +61,4 @@ gulp.task('watch',  function () {
 
 // Expose Gulp to external tools
 module.exports = gulp;
+
